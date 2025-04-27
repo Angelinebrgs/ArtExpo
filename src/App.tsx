@@ -1,10 +1,34 @@
 // This file is a React component that serves as the main entry point for the application.
+import { useState, useEffect } from 'react';
+import { collection, getDocs, query, orderBy } from 'firebase/firestore';
+import { db } from './firebase/Config';
 import './assets/style/style.css';
 import img from '/src/assets/img/ARtisteperfexample.jpg';
 import img2 from '/src/assets/img/Oeuvreexample.png';
 
 
 export default function Index() {
+
+  const [oeuvres, setOeuvres] = useState([]);
+  
+  useEffect(() => {
+    const fetchOeuvres = async () => {
+      try {
+        const oeuvresCollection = collection(db, 'oeuvres'); // 'oeuvres' est le nom de votre collection
+        const oeuvresQuery = query(oeuvresCollection, orderBy('createdAt', 'desc'));
+        const oeuvresSnapshot = await getDocs(oeuvresQuery);
+        const oeuvresList = oeuvresSnapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        }));
+        setOeuvres(oeuvresList);
+      } catch (error) {
+        console.error("Erreur lors de la récupération des œuvres :", error);
+      }
+    };
+    fetchOeuvres();
+  }, []);
+
   return (
     <>
       <header className="main-header">
