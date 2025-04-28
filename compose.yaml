@@ -1,0 +1,12 @@
+services:
+  artexpo:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: artexpo
+    working_dir: /usr/src/app
+    volumes:
+      - .:/usr/src/app
+    command: ["npm", "run", "dev"]
+    ports:
+      - "3000:3000"

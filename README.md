@@ -23,6 +23,12 @@ Assurez-vous d'avoir [Node.js](https://nodejs.org/) installé. Ensuite, exécute
 ```bash
 npm install
 ```
+### Si vous rencontrez des problèmes d'installation, vous pouvez utiliser Docker pour construire l'image du projet. en créant un dockerfile dans le dossier docker.
+### pour eviter que le probleme ne revienne / persiste une fois le build fait faire les update directement dans le terminal du conteneur qui se trouve dans la partie exec.
+```bash
+docker build -f ./docker/dockerfile -t node_install:latest .
+docker run --rm -it -v $(pwd):/app node_install:latest
+```
 
 ### 3. Lancer le serveur de développement
 
