@@ -1,12 +1,11 @@
-name: CI – Frontend & Backend
+name: CD – Frontend Deployment
 
 on:
   push:
     branches: [ master, dev, ci ]
-  pull_request:
 
 jobs:
-  ci:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -18,14 +17,6 @@ jobs:
       with:
         node-version: '18'
 
-    - name: 📦 Install backend dependencies
-      working-directory: back
-      run: npm install
-
-    - name: 🏗️ Build backend (Strapi)
-      working-directory: back
-      run: npm run build
-
     - name: 📦 Install frontend dependencies
       working-directory: front
       run: npm install
@@ -34,10 +25,8 @@ jobs:
       working-directory: front
       run: npm run build
 
-    - name: ✅ Run backend tests
-      working-directory: back
-      run: npm test
-
-    - name: ✅ Run frontend tests
-      working-directory: front
-      run: npm test
+    - name: 🚀 Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: front/dist
