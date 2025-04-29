@@ -19,7 +19,7 @@ jobs:
 
     - name: 📦 Install backend dependencies
       working-directory: back
-      run: npm ci
+      run: npm install
 
     - name: 🏗️ Build backend (Strapi)
       working-directory: back
@@ -27,7 +27,7 @@ jobs:
 
     - name: 📦 Install frontend dependencies
       working-directory: front
-      run: npm ci
+      run: npm install
 
     - name: 🏗️ Build frontend
       working-directory: front
