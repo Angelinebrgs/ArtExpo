@@ -1,0 +1,47 @@
+name: CI – Front + Back
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18.x]
+
+    steps:
+    - name: 📥 Checkout repository
+      uses: actions/checkout@v3
+
+    - name: 🟢 Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    # === Backend (Strapi) ===
+    - name: 📦 Install backend dependencies
+      working-directory: ./backend
+      run: npm ci
+
+    - name: 🏗️ Build Strapi
+      working-directory: ./back
+      run: npm run build
+
+    # === Frontend (Vite + React) ===
+    - name: 📦 Install frontend dependencies
+      working-directory: ./front
+      run: npm ci
+
+    - name: 🏗️ Build front
+      working-directory: ./front
+      run: npm run build
+
+    # (optionnel) Test frontend ou backend ici
+
+    - name: ✅ Lint front
+      working-directory: ./front
+      run: npm run lint || true
