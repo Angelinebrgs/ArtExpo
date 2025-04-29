@@ -15,44 +15,6 @@ git clone https://github.com/Angelinebrgs/ArtExpo.git
 cd ArtExpo
 ```
 
-### 2. Installer les dépendances
-
-Assurez-vous d'avoir [Node.js](https://nodejs.org/) installé. Ensuite, exécutez :
-
-#### Pour le front-end :
-
-```bash
-cd front
-npm install
-```
-
-#### Pour le back-end :
-
-```bash
-cd ../back
-npm install
-```
-
-### 3. Lancer le serveur de développement
-
-#### Pour le front-end :
-
-```bash
-cd front
-npm start
-```
-
-Le front-end sera accessible à l'adresse : [http://localhost:3000](http://localhost:3000)
-
-#### Pour le back-end :
-
-```bash
-cd ../back
-npm run develop
-```
-
-Le back-end sera accessible à l'adresse : [http://localhost:1337](http://localhost:1337)
-
 ### Utilisation de Docker (optionnel)
 
 Si vous rencontrez des problèmes d'installation, vous pouvez utiliser Docker pour construire l'image du projet. Créez un fichier `Dockerfile` dans le dossier `docker` et exécutez :
@@ -60,6 +22,8 @@ Si vous rencontrez des problèmes d'installation, vous pouvez utiliser Docker po
 ```bash
 docker build -f ./docker/dockerfile -t node_install:latest .
 docker run --rm -it -v $(pwd):/app node_install:latest
+docker compose up
+
 ```
 
 Pour éviter que les problèmes ne persistent après le build, effectuez les mises à jour directement dans le terminal du conteneur via la commande `exec`.
