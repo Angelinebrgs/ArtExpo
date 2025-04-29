@@ -2,7 +2,7 @@ name: CI/CD – Frontend & Backend
 
 on:
   push:
-    branches: [ ci ]
+    branches: [ master,dev,ci ]
 
 jobs:
   deploy:
