@@ -1,7 +1,6 @@
 // This file is a React component that serves as the main entry point for the application.
 import './assets/style/style.css';
 import img from '/src/assets/img/ARtisteperfexample.jpg';
-import img2 from '/src/assets/img/Oeuvreexample.png';
 
 
 export default function Index() {
@@ -19,7 +18,7 @@ export default function Index() {
         <section className="oeuvres">
           <h2>ŒUVRES</h2>
           <div className="grid">
-            <img src={img2} alt="Performance" className="img-large"/>
+            <img src="http://localhost:1337/uploads/medium_mental_foundry_unnamed_9_c3761a83eb.jpg" alt="Performance" className="img-large"/>
             <div className="img-text">
               <div className="text-box">
                 <h3>Les mots, l’amour, les sorts..</h3>

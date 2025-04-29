@@ -1,0 +1,43 @@
+name: CI – Frontend & Backend
+
+on:
+  push:
+    branches: [ master, dev, ci ]
+  pull_request:
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: 📥 Checkout code
+      uses: actions/checkout@v3
+
+    - name: 🟢 Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+
+    - name: 📦 Install backend dependencies
+      working-directory: back
+      run: npm install
+
+    - name: 🏗️ Build backend (Strapi)
+      working-directory: back
+      run: npm run build
+
+    - name: 📦 Install frontend dependencies
+      working-directory: front
+      run: npm install
+
+    - name: 🏗️ Build frontend
+      working-directory: front
+      run: npm run build
+
+    - name: ✅ Run backend tests
+      working-directory: back
+      run: npm test
+
+    - name: ✅ Run frontend tests
+      working-directory: front
+      run: npm test

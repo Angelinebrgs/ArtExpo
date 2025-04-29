@@ -1,4 +1,3 @@
-
 # ArtExpo
 
 **ArtExpo** est un site vitrine dédié à une artiste contemporaine, mettant en valeur ses performances et ses textes. Ce projet propose une interface épurée, avec une dominante de bleu, et une mise en page en une à deux colonnes, offrant une expérience immersive et élégante.
@@ -16,42 +15,56 @@ git clone https://github.com/Angelinebrgs/ArtExpo.git
 cd ArtExpo
 ```
 
-### 2. Installer les dépendances
+### Utilisation de Docker (optionnel)
 
-Assurez-vous d'avoir [Node.js](https://nodejs.org/) installé. Ensuite, exécutez :
-
-```bash
-npm install
-```
-
-### 3. Lancer le serveur de développement
+Si vous rencontrez des problèmes d'installation, vous pouvez utiliser Docker pour construire l'image du projet. Créez un fichier `Dockerfile` dans le dossier `docker` et exécutez :
 
 ```bash
-npm start
+docker build -f ./docker/dockerfile -t node_install:latest .
+docker run --rm -it -v $(pwd):/app node_install:latest
+docker compose up
+
 ```
 
-Le site sera accessible à l'adresse : [http://localhost:3000](http://localhost:3000)
+Pour éviter que les problèmes ne persistent après le build, effectuez les mises à jour directement dans le terminal du conteneur via la commande `exec`.
 
 ## 🧾 Structure du projet
 
+Voici la structure complète du projet :
+
 ```
 ArtExpo/
-├── public/
-│   └── index.html
-├── src/
-│   ├── assets/
-│   │   └── images/
-│   ├── components/
-│   │   ├── Header.jsx
-│   │   ├── Gallery.jsx
-│   │   └── Footer.jsx
-│   ├── pages/
-│   │   ├── Home.jsx
-│   │   ├── Performances.jsx
-│   │   └── Texts.jsx
-│   ├── App.jsx
-│   └── index.js
-├── package.json
+├── front/
+│   ├── public/
+│   │   └── index.html
+│   ├── src/
+│   │   ├── assets/
+│   │   │   └── images/
+│   │   ├── components/
+│   │   │   ├── Header.jsx
+│   │   │   ├── Gallery.jsx
+│   │   │   └── Footer.jsx
+│   │   ├── pages/
+│   │   │   ├── Home.jsx
+│   │   │   ├── Performances.jsx
+│   │   │   └── Texts.jsx
+│   │   ├── App.jsx
+│   │   └── index.js
+│   ├── package.json
+│   └── README.md
+├── back/
+│   ├── config/
+│   ├── src/
+│   │   ├── api/
+│   │   ├── components/
+│   │   ├── extensions/
+│   │   └── middlewares/
+│   ├── .env
+│   ├── package.json
+│   └── README.md
+├── docker/
+│   └── dockerfile
+├── .gitignore
 └── README.md
 ```
 
@@ -61,6 +74,7 @@ ArtExpo/
 - React Router
 - CSS Modules / Styled Components
 - Node.js (pour le gestionnaire de paquets)
+- Strapi (pour le back-end)
 
 ## 📬 Contact
 
