@@ -13,6 +13,8 @@
 ```bash
 git clone https://github.com/Angelinebrgs/ArtExpo.git
 cd ArtExpo
+docker build -f ./docker/dockerfile -t node_install:latest .
+docker compose up
 ```
 
 ### Utilisation de Docker (optionnel)
@@ -78,4 +80,4 @@ ArtExpo/
 
 ## 📬 Contact
 
-Pour toute question ou suggestion, veuillez contacter : [angeline@example.com](mailto:titou.borges@gmail.com)
+Pour toute question ou suggestion, veuillez contacter : [titou.borges@gmail.com](mailto:titou.borges@gmail.com)
