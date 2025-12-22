@@ -1,83 +1,155 @@
 # ArtExpo
 
-**ArtExpo** est un site vitrine dédié à une artiste contemporaine, mettant en valeur ses performances et ses textes. Ce projet propose une interface épurée, avec une dominante de bleu, et une mise en page en une à deux colonnes, offrant une expérience immersive et élégante.
+**ArtExpo** est un site vitrine artistique composé d’un **frontend React (Vite)** et d’un **backend Strapi**, entièrement orchestré avec **Docker** afin de garantir une installation **identique sur Linux, Windows et macOS**.
 
-## 🎨 Aperçu
+Ce README explique **pas à pas** comment lancer le projet sans rencontrer les problèmes classiques (Node, sharp, sqlite, node_modules, etc.).
 
-![Aperçu du site](./assets/preview.png)
+---
 
-## 🚀 Installation et lancement du projet
+## 🎯 Philosophie du projet
 
-### 1. Cloner le dépôt
+* ❌ Aucune dépendance Node installée sur la machine hôte
+* ✅ Tout s’exécute **dans Docker**
+* ✅ Compatible **Linux / Windows / macOS**
+* ✅ Modules natifs (`sharp`, `better-sqlite3`) compilés **uniquement dans le conteneur**
+* ✅ Environnement reproductible pour toute nouvelle machine
+
+---
+
+## 🧰 Prérequis
+
+* **Docker** ≥ 24
+* **Docker Compose** v2
+* (Windows) Docker Desktop avec **WSL2 activé**
+
+Vérification :
+
+```bash
+docker --version
+docker compose version
+```
+
+---
+
+## 🚀 Installation et lancement (méthode officielle)
+
+### 1️⃣ Cloner le projet
 
 ```bash
 git clone https://github.com/Angelinebrgs/ArtExpo.git
 cd ArtExpo
-docker build -f ./docker/dockerfile -t node_install:latest .
-docker compose up
 ```
 
-### Utilisation de Docker (optionnel)
+---
 
-Si vous rencontrez des problèmes d'installation, vous pouvez utiliser Docker pour construire l'image du projet. Créez un fichier `Dockerfile` dans le dossier `docker` et exécutez :
+### 2️⃣ Créer le fichier `.env`
+
+Le fichier `.env` **n’est jamais versionné**.
+
+Créer `.env` à la racine du projet :
+
+```env
+NODE_ENV=development
+APP_KEYS=key1,key2,key3,key4
+API_TOKEN_SALT=change_me
+ADMIN_JWT_SECRET=change_me
+JWT_SECRET=change_me
+```
+
+---
+
+### 3️⃣ Lancer le projet avec Docker
+
+Commande unique (fonctionne sur toutes les machines) :
 
 ```bash
-docker build -f ./docker/dockerfile -t node_install:latest .
-docker run --rm -it -v $(pwd):/app node_install:latest
-docker compose up
-
+docker compose up -d --build
 ```
 
-Pour éviter que les problèmes ne persistent après le build, effectuez les mises à jour directement dans le terminal du conteneur via la commande `exec`.
+Suivre les logs du backend :
 
-## 🧾 Structure du projet
+```bash
+docker compose logs -f backend
+```
 
-Voici la structure complète du projet :
+---
+
+## 🌍 Accès aux applications
+
+* **Frontend** : [http://localhost:3000](http://localhost:3000)
+* **Strapi Admin** : [http://localhost:1337/admin](http://localhost:1337/admin)
+
+---
+
+## 📦 Volumes Docker (important)
+
+Le projet utilise des volumes Docker pour garantir la compatibilité multi‑OS :
+
+| Volume               | Rôle               |
+| -------------------- | ------------------ |
+| `front_node_modules` | Dépendances React  |
+| `back_node_modules`  | Dépendances Strapi |
+| `back_data`          | Base SQLite        |
+| `back_uploads`       | Uploads Strapi     |
+
+👉 Les `node_modules` **ne doivent jamais être installés sur la machine hôte**.
+
+---
+
+## 🧹 Nettoyage / reset complet (en cas de souci)
+
+Si tu rencontres une erreur liée à `sharp`, `better-sqlite3`, ou à des dépendances :
+
+```bash
+docker compose down -v
+rm -rf front/node_modules back/node_modules
+docker compose up -d --build
+```
+
+⚠️ Cette commande supprime aussi la base SQLite locale.
+
+---
+
+## 🚫 Erreurs courantes évitées par ce setup
+
+* ❌ `libnode.so not found`
+* ❌ `sharp build failed`
+* ❌ `better-sqlite3 incompatible`
+* ❌ conflits Windows / Linux
+* ❌ `node_modules` écrasés par les volumes
+
+Tout est compilé **dans Docker**, jamais sur l’OS hôte.
+
+---
+
+## 🗂️ Structure du projet
 
 ```
 ArtExpo/
-├── front/
-│   ├── public/
-│   │   └── index.html
-│   ├── src/
-│   │   ├── assets/
-│   │   │   └── images/
-│   │   ├── components/
-│   │   │   ├── Header.jsx
-│   │   │   ├── Gallery.jsx
-│   │   │   └── Footer.jsx
-│   │   ├── pages/
-│   │   │   ├── Home.jsx
-│   │   │   ├── Performances.jsx
-│   │   │   └── Texts.jsx
-│   │   ├── App.jsx
-│   │   └── index.js
-│   ├── package.json
-│   └── README.md
-├── back/
-│   ├── config/
-│   ├── src/
-│   │   ├── api/
-│   │   ├── components/
-│   │   ├── extensions/
-│   │   └── middlewares/
-│   ├── .env
-│   ├── package.json
-│   └── README.md
-├── docker/
-│   └── dockerfile
+├── front/              # Frontend React (Vite)
+├── back/               # Backend Strapi
+├── docker-compose.yml
+├── .env                # Local uniquement
 ├── .gitignore
 └── README.md
 ```
 
+---
+
 ## 🖌️ Technologies utilisées
 
-- React.js
-- React Router
-- CSS Modules / Styled Components
-- Node.js (pour le gestionnaire de paquets)
-- Strapi (pour le back-end)
+* React (Vite)
+* Strapi
+* SQLite (dev)
+* Docker & Docker Compose
+
+---
 
 ## 📬 Contact
 
-Pour toute question ou suggestion, veuillez contacter : [titou.borges@gmail.com](mailto:titou.borges@gmail.com)
+Pour toute question :
+📧 [titou.borges@gmail.com](mailto:titou.borges@gmail.com)
+
+---
+
+✨ **Ce projet est conçu pour être cloné et lancé sans friction, sur n’importe quelle machine.**
