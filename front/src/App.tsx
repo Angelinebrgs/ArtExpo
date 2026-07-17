@@ -1,57 +1,59 @@
-// This file is a React component that serves as the main entry point for the application.
+import { useEffect } from 'react';
+import { Routes, Route, useLocation } from 'react-router-dom';
+
 import './assets/style/style.css';
-import img from '/src/assets/img/ARtisteperfexample.jpg';
+import './assets/style/responsive.css';
 
+import Cursor from './components/ui/Cursor';
+import Nav from './components/layout/Nav';
+import Footer from './components/layout/Footer';
 
-export default function Index() {
+import Accueil from './components/Accueil';
+import GalleryList from './components/GalleryList';
+import OeuvreDetail from './components/OeuvreDetail';
+import ContactForm from './components/ContactForm';
+import NonTrouve from './components/NonTrouve';
+
+/** Remonte en haut de page à chaque changement de route. */
+function ScrollHaut() {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [pathname]);
+  return null;
+}
+
+export default function App() {
+  // Retrait du splash de chargement après le montage.
+  useEffect(() => {
+    const t = setTimeout(() => {
+      const s = document.getElementById('splash');
+      if (s) {
+        s.classList.add('gone');
+        setTimeout(() => s.remove(), 1000);
+      }
+    }, 500);
+    return () => clearTimeout(t);
+  }, []);
+
   return (
     <>
-      <header className="main-header">
-        <h1>ARTISTE</h1> 
-      </header>
-
-      <main className="container">
-        <section className="hero">
-          <img src={img} alt="Artiste en performance" />
-        </section>
-
-        <section className="oeuvres">
-          <h2>ŒUVRES</h2>
-          <div className="grid">
-            <img src="http://localhost:1337/uploads/medium_mental_foundry_unnamed_9_c3761a83eb.jpg" alt="Performance" className="img-large"/>
-            <div className="img-text">
-              <div className="text-box">
-                <h3>Les mots, l’amour, les sorts..</h3>
-                <p>
-                  Oeuvre réalisé, 2021<br />
-                  avec Crys Aslanian<br />
-                  Sur un Plateau radio...<br />
-                Workshop d’une semaine avec l’artiste Crys Aslanian.
-                Les Mots, l’amour, les sorts est une proposition d’atelier autour des pratiques de l’écriture collective. Durant une semaine, 6 étudiantes ont coécrit des textes, des poèmes et des extraits de
-                journal en créant et en laissant circuler des éléments produits par chacune puis transformés par
-                d’autre..
-                Rêver de Travers est le résultat d’un exercice de création de monde autour du jeu de rôle Dream
-                Askew de l’autrice Avery Adler. Ce jeu invite à créer un monde post apocalyptique dans lequel
-                survit une enclave queer entourée de gangs, d’un Maelstrom Psychique et d’une Société restée
-                intacte.
-                Enregistrement réalisé au Fotomat le 19 Mars 2021 à Clermont-Ferrand.
-                Proposition de Crys Aslanian et Nelly Girardeau
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className="apropos">
-          <h2>À PROPOS</h2>
-          <p>Arts Contemporain</p>
-        </section>
-
-        <footer>
-          <h2>CONTACT</h2>
-          <p>info@exemple.com</p>
-        </footer>
+      <Cursor />
+      <ScrollHaut />
+      <Nav />
+      <main>
+        {/* Le découpage en routes reprend l'enchaînement des maquettes.
+            La route attrape-tout est traitée explicitement (§7.4.3). */}
+        <Routes>
+          <Route path="/" element={<Accueil />} />
+          <Route path="/oeuvres" element={<GalleryList />} />
+          <Route path="/oeuvres/:slug" element={<OeuvreDetail />} />
+          <Route path="/contact" element={<ContactForm />} />
+          {/* Toute URL inconnue est traitée explicitement, jamais ignorée. */}
+          <Route path="*" element={<NonTrouve />} />
+        </Routes>
       </main>
+      <Footer />
     </>
   );
 }
