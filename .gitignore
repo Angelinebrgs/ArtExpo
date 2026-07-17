@@ -22,8 +22,7 @@ jspm_packages/
 # IDE files
 .vscode/
 .idea/
-
-
+.env
 
 /back/.env
 /back/license.txt
