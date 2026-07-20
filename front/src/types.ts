@@ -67,6 +67,11 @@ export const MEDIUMS: { id: '' | Medium; label: string }[] = [
   { id: 'installation_sonore', label: 'Installation sonore' },
 ];
 
+/** Libellé lisible d'un médium ; retombe sur la valeur brute si elle est inconnue. */
+export function libelleMedium(id: Medium): string {
+  return MEDIUMS.find((m) => m.id === id)?.label ?? id;
+}
+
 /** Champs du formulaire de contact (§7.1.2). */
 export interface Champs {
   name: string;

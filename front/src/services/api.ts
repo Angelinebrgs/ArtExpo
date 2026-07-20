@@ -77,14 +77,33 @@ function query(params: Record<string, string | number | undefined>): string {
   return s ? `?${s}` : '';
 }
 
+/** Filtres acceptés par la liste des œuvres (miroir du service métier). */
+export interface FiltresOeuvres {
+  medium?: string;
+  year?: number;
+  /** Slug de la galerie thématique à laquelle l'œuvre est rattachée. */
+  collection?: string;
+  page?: number;
+  pageSize?: number;
+}
+
 /**
- * Liste les œuvres, avec filtre facultatif par médium.
+ * Liste les œuvres, avec filtres facultatifs par médium et par année.
  * Le populate est explicite et restreint (§7.3.3) : image + name/slug de la galerie.
+ * Un filtre vide n'ajoute aucun paramètre superflu à l'URL.
  */
 export function listerOeuvres(
-  filtres: { medium?: string } = {},
+  filtres: FiltresOeuvres = {},
   signal?: AbortSignal,
 ): Promise<Page<Oeuvre>> {
+  // Bornage de la pagination, en miroir du garde-fou serveur (§7.2) :
+  // le client ne demande jamais plus que ce que le serveur accorderait.
+  const pageSize =
+    filtres.pageSize === undefined
+      ? undefined
+      : Math.min(24, Math.max(1, filtres.pageSize));
+  const page = filtres.page === undefined ? undefined : Math.max(1, filtres.page);
+
   const chemin =
     '/arts' +
     query({
@@ -92,6 +111,10 @@ export function listerOeuvres(
       'populate[gallery][fields][0]': 'name',
       'populate[gallery][fields][1]': 'slug',
       'filters[medium][$eq]': filtres.medium,
+      'filters[year][$eq]': Number.isInteger(filtres.year) ? filtres.year : undefined,
+      'filters[gallery][slug][$eq]': filtres.collection,
+      'pagination[page]': page,
+      'pagination[pageSize]': pageSize,
       'sort[0]': 'year:desc',
       'sort[1]': 'createdAt:desc',
     });

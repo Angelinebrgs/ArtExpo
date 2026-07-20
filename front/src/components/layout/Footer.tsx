@@ -27,6 +27,9 @@ export default function Footer() {
           <div className="small-cap">Naviguer</div>
           <ul style={{ listStyle: 'none', padding: 0, margin: '18px 0 0', display: 'grid', gap: 10, fontFamily: 'var(--sans)', fontSize: 14 }}>
             <li><Link to="/oeuvres" className="ulink">Œuvres</Link></li>
+            <li><Link to="/expositions" className="ulink">Expositions</Link></li>
+            <li><Link to="/ecrits" className="ulink">Écrits</Link></li>
+            <li><Link to="/a-propos" className="ulink">À propos</Link></li>
             <li><Link to="/contact" className="ulink">Contact</Link></li>
           </ul>
         </div>

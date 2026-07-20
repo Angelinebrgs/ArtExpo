@@ -16,22 +16,109 @@
   gap:0.75rem;
 }
 
+/* Accueil : présentation asymétrique (visuel + texte). */
+.accueil-presentation{
+  display:grid;
+  grid-template-columns:5fr 7fr;
+  gap:80px;
+  align-items:start;
+}
+
+/* Accueil : grille des œuvres récentes. */
+.grille-recentes{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:2.5rem;
+  list-style:none;
+  padding:0;
+  margin:0;
+}
+
+/* Expositions : année à gauche, événements à droite. */
+.chrono-annee{
+  display:grid;
+  grid-template-columns:160px 1fr;
+  gap:48px;
+  padding:56px 0;
+  border-top:1px solid var(--gray-2);
+}
+.chrono-ligne{
+  display:grid;
+  grid-template-columns:80px 1fr 220px;
+  gap:32px;
+  align-items:baseline;
+}
+.chrono-lieu{ text-align:right; }
+
+/* Écrits : sommaire à gauche, lecteur à droite. */
+.cahier{
+  display:grid;
+  grid-template-columns:260px 1fr;
+  gap:80px;
+  padding-top:56px;
+}
+.cahier-sommaire{
+  position:sticky;
+  top:120px;
+  align-self:start;
+}
+
+/* À propos : parcours en trois colonnes, presse en deux. */
+.parcours{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:64px;
+  padding-top:64px;
+}
+.presse{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:64px;
+  padding-top:64px;
+}
+
+/* Page détail : titre à gauche, fiche technique à droite. */
+.detail-entete{
+  display:grid;
+  grid-template-columns:7fr 5fr;
+  gap:80px;
+}
+
 /* Tablette : la grille passe à deux colonnes. */
 @media (max-width:1024px){
   .container{ padding:1rem 1.5rem; }
   .grille-oeuvres{ grid-template-columns:repeat(2,1fr); gap:1.5rem; }
+  .grille-recentes{ grid-template-columns:repeat(2,1fr); gap:2rem; }
+  .accueil-presentation{ gap:48px; }
+  .detail-entete{ gap:48px; }
+  .cahier{ grid-template-columns:200px 1fr; gap:48px; }
+  .parcours{ gap:40px; }
 }
 
 /* Tablette étroite : navigation repliée sous le logo. */
 @media (max-width:768px){
   .main-header{ flex-direction:column; gap:1rem; }
   .grille-oeuvres{ gap:1.25rem; }
+  /* Le visuel de présentation passe au-dessus du texte. */
+  .accueil-presentation{ grid-template-columns:1fr; gap:40px; }
+  /* La chronologie se déplie : année, puis événements. */
+  .chrono-annee{ grid-template-columns:1fr; gap:24px; padding:40px 0; }
+  .chrono-ligne{ grid-template-columns:1fr; gap:8px; }
+  .chrono-lieu{ text-align:left; }
+  /* Le sommaire du cahier repasse au-dessus du texte. */
+  .cahier{ grid-template-columns:1fr; gap:48px; }
+  .cahier-sommaire{ position:static; }
+  .parcours{ grid-template-columns:1fr; gap:48px; }
+  .presse{ grid-template-columns:1fr; gap:48px; }
+  /* La fiche technique passe sous le titre. */
+  .detail-entete{ grid-template-columns:1fr; gap:32px; }
 }
 
 /* Mobile : une seule colonne, marges réduites. */
 @media (max-width:480px){
   .container{ padding:0.75rem; }
   .grille-oeuvres{ grid-template-columns:1fr; }
+  .grille-recentes{ grid-template-columns:1fr; gap:1.5rem; }
   .filtres{ overflow-x:auto; flex-wrap:nowrap; }
 }
 

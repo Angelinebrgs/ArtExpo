@@ -1,8 +1,7 @@
 import { NavLink, Link } from 'react-router-dom';
 
 /**
- * En-tête collant. Le périmètre applicatif du dossier couvre 3 destinations
- * publiques : Accueil, Œuvres, Contact (§7.4.3).
+ * En-tête collant, reprenant les destinations publiques du site.
  */
 export default function Nav() {
   return (
@@ -41,13 +40,12 @@ export default function Nav() {
         >
           maïlyss borges
         </Link>
-        <nav style={{ display: 'flex', gap: 36 }}>
-          <NavLink to="/oeuvres" className="nav-link">
-            Œuvres
-          </NavLink>
-          <NavLink to="/contact" className="nav-link">
-            Contact
-          </NavLink>
+        <nav className="nav-liens" style={{ display: 'flex', gap: 28, flexWrap: 'wrap' }}>
+          <NavLink to="/oeuvres" className="nav-link">Œuvres</NavLink>
+          <NavLink to="/expositions" className="nav-link">Expositions</NavLink>
+          <NavLink to="/ecrits" className="nav-link">Écrits</NavLink>
+          <NavLink to="/a-propos" className="nav-link">À propos</NavLink>
+          <NavLink to="/contact" className="nav-link">Contact</NavLink>
         </nav>
       </div>
     </header>

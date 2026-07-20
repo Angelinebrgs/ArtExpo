@@ -11,6 +11,9 @@ import Footer from './components/layout/Footer';
 import Accueil from './components/Accueil';
 import GalleryList from './components/GalleryList';
 import OeuvreDetail from './components/OeuvreDetail';
+import Expositions from './components/Expositions';
+import Ecrits from './components/Ecrits';
+import APropos from './components/APropos';
 import ContactForm from './components/ContactForm';
 import NonTrouve from './components/NonTrouve';
 
@@ -48,6 +51,9 @@ export default function App() {
           <Route path="/" element={<Accueil />} />
           <Route path="/oeuvres" element={<GalleryList />} />
           <Route path="/oeuvres/:slug" element={<OeuvreDetail />} />
+          <Route path="/expositions" element={<Expositions />} />
+          <Route path="/ecrits" element={<Ecrits />} />
+          <Route path="/a-propos" element={<APropos />} />
           <Route path="/contact" element={<ContactForm />} />
           {/* Toute URL inconnue est traitée explicitement, jamais ignorée. */}
           <Route path="*" element={<NonTrouve />} />
