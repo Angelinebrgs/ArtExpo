@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "galleries",
+  "info": {
+    "singularName": "gallery",
+    "pluralName": "galleries",
+    "displayName": "Galerie",
+    "description": "Collection thematique regroupant des oeuvres (entite GALLERY du modele Merise)."
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "unique": true,
+      "maxLength": 160
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "name",
+      "required": true
+    },
+    "arts": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::art.art",
+      "mappedBy": "gallery"
+    }
+  }
+}

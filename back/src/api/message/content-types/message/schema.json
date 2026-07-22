@@ -1,0 +1,43 @@
+{
+  "kind": "collectionType",
+  "collectionName": "messages",
+  "info": {
+    "singularName": "message",
+    "pluralName": "messages",
+    "displayName": "Message",
+    "description": "Message de contact avec suivi de statut (entite MESSAGE du modele Merise)."
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "minLength": 2,
+      "maxLength": 160
+    },
+    "email": {
+      "type": "string",
+      "required": true,
+      "maxLength": 254
+    },
+    "body": {
+      "type": "text",
+      "required": true,
+      "minLength": 10,
+      "maxLength": 2000
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "new",
+        "read",
+        "replied"
+      ],
+      "default": "new",
+      "required": true
+    }
+  }
+}

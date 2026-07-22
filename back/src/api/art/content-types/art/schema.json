@@ -4,8 +4,8 @@
   "info": {
     "singularName": "art",
     "pluralName": "arts",
-    "displayName": "Arts",
-    "description": ""
+    "displayName": "Oeuvre",
+    "description": "Oeuvre individuelle (entite ARTWORK du modele Merise)."
   },
   "options": {
     "draftAndPublish": true
@@ -16,25 +16,45 @@
       "type": "string",
       "required": true,
       "unique": true,
-      "pluginOptions": {}
+      "maxLength": 160
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "name",
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "required": true
+    },
+    "year": {
+      "type": "integer",
+      "min": 1900,
+      "max": 2100
+    },
+    "medium": {
+      "type": "enumeration",
+      "enum": [
+        "performance",
+        "cyanotype",
+        "edition",
+        "installation_sonore"
+      ],
+      "required": true
     },
     "img": {
       "type": "media",
       "multiple": false,
       "required": true,
       "allowedTypes": [
-        "images",
-        "files",
-        "videos",
-        "audios"
-      ],
-      "pluginOptions": {}
+        "images"
+      ]
     },
-    "description": {
-      "type": "text",
-      "required": true,
-      "pluginOptions": {},
-      "unique": true
+    "gallery": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::gallery.gallery",
+      "inversedBy": "arts"
     }
   }
 }
