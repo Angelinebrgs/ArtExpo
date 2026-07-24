@@ -1,6 +1,13 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { ApiError, envoyerMessage, listerOeuvres, recupererOeuvre, urlMedia } from './api';
+import {
+  ApiError,
+  envoyerMessage,
+  listerGaleries,
+  listerOeuvres,
+  recupererOeuvre,
+  urlMedia,
+} from './api';
 
 /**
  * Tests unitaires du client d'accès aux données (§9.1 — portée « api.ts »).
@@ -190,6 +197,35 @@ describe('recupererOeuvre', () => {
     simulerReponse({ data: [] });
 
     await expect(recupererOeuvre('inconnue')).resolves.toBeNull();
+  });
+});
+
+describe('listerGaleries', () => {
+  it('interroge /galleries en triant par année décroissante', async () => {
+    const mock = simulerReponse({ data: [] });
+
+    await listerGaleries();
+
+    const url = urlAppelee(mock);
+    expect(url).toMatch(/^http:\/\/localhost:1337\/api\/galleries/);
+    expect(url).toContain('sort%5B0%5D=year%3Adesc');
+  });
+
+  it('ne demande aucun populate : la chronologie n’affiche pas les œuvres', async () => {
+    const mock = simulerReponse({ data: [] });
+
+    await listerGaleries();
+
+    expect(urlAppelee(mock)).not.toContain('populate');
+  });
+
+  it('transmet le signal d’annulation', async () => {
+    const mock = simulerReponse({ data: [] });
+    const controleur = new AbortController();
+
+    await listerGaleries(controleur.signal);
+
+    expect((mock.mock.calls[0][1] as RequestInit).signal).toBe(controleur.signal);
   });
 });
 

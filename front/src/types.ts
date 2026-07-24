@@ -26,10 +26,25 @@ export interface Media {
   } | null;
 }
 
-/** Galerie thématique (relation manyToOne, populate restreint à name+slug). */
+/**
+ * Galerie thématique — c'est aussi l'entité qui porte les expositions
+ * (voir §5.4 : « Expo 2024, Portfolio printemps »).
+ *
+ * Les champs éditoriaux sont facultatifs : lorsqu'une galerie est chargée
+ * en relation depuis une œuvre, le populate est volontairement restreint à
+ * `name` et `slug` (§7.3.3), et eux seuls sont alors présents.
+ */
 export interface Galerie {
+  id?: number;
   name: string;
   slug: string;
+  year?: number;
+  month?: string;
+  /** Nature de l'événement : individuelle, collective, résidence… */
+  role?: string;
+  place?: string;
+  /** Commissariat ; absent lorsqu'il n'y en a pas. */
+  curator?: string;
 }
 
 /** Une œuvre (entité ARTWORK). */

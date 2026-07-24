@@ -1,18 +1,16 @@
 import { describe, expect, it } from 'vitest';
 
 import { grouperParAnnee } from './chronologie';
-import type { Exposition } from '../content/types';
 
-function exposition(partiel: Partial<Exposition> = {}): Exposition {
-  return {
-    id: 'test',
-    year: 2024,
-    month: 'Mars',
-    title: 'Reverdie',
-    role: 'Exposition collective',
-    place: 'ESACM, Clermont-Ferrand',
-    ...partiel,
-  };
+/** Élément daté minimal : la fonction n'exige rien de plus qu'une année. */
+interface Datee {
+  id: string;
+  year?: number;
+  title?: string;
+}
+
+function exposition(partiel: Partial<Datee> = {}): Datee {
+  return { id: 'test', year: 2024, title: 'Reverdie', ...partiel };
 }
 
 describe('grouperParAnnee', () => {

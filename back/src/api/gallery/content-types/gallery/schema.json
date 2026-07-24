@@ -5,7 +5,7 @@
     "singularName": "gallery",
     "pluralName": "galleries",
     "displayName": "Galerie",
-    "description": "Collection thematique regroupant des oeuvres (entite GALLERY du modele Merise)."
+    "description": "Collection thematique / exposition regroupant des oeuvres (entite GALLERY du modele Merise)."
   },
   "options": {
     "draftAndPublish": false
@@ -22,6 +22,28 @@
       "type": "uid",
       "targetField": "name",
       "required": true
+    },
+    "year": {
+      "type": "integer",
+      "required": true,
+      "min": 1900,
+      "max": 2100
+    },
+    "month": {
+      "type": "string",
+      "maxLength": 20
+    },
+    "role": {
+      "type": "string",
+      "maxLength": 160
+    },
+    "place": {
+      "type": "string",
+      "maxLength": 160
+    },
+    "curator": {
+      "type": "string",
+      "maxLength": 160
     },
     "arts": {
       "type": "relation",

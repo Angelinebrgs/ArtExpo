@@ -4,7 +4,7 @@
    Aucun composant n'appelle `fetch` directement.
    ========================================================================= */
 
-import type { Champs, Oeuvre, Page } from '../types';
+import type { Champs, Galerie, Oeuvre, Page } from '../types';
 
 /** URL de base de l'API (ex. http://localhost:1337/api). Jamais écrite en dur. */
 const BASE: string = import.meta.env.VITE_API_URL;
@@ -136,6 +136,20 @@ export async function recupererOeuvre(
     });
   const page = await requete<Page<Oeuvre>>(chemin, { signal });
   return page.data[0] ?? null;
+}
+
+/**
+ * Liste les galeries (expositions), de la plus récente à la plus ancienne.
+ * Aucun populate : la chronologie n'affiche pas les œuvres rattachées.
+ */
+export function listerGaleries(signal?: AbortSignal): Promise<Page<Galerie>> {
+  const chemin =
+    '/galleries' +
+    query({
+      'sort[0]': 'year:desc',
+      'sort[1]': 'createdAt:desc',
+    });
+  return requete<Page<Galerie>>(chemin, { signal });
 }
 
 /**

@@ -5,18 +5,7 @@
    correspondantes existent (voir src/content/types.ts).
    ========================================================================= */
 
-import type { Ecrit, Exposition, LigneParcours, MentionPresse } from './types';
-
-export const EXPOSITIONS: Exposition[] = [
-  { id: 'la-ou-les-corps-fondent', year: 2025, month: 'Nov.', title: 'Là où les corps fondent', role: 'Exposition individuelle', place: "Galerie l'Estampe, Lyon" },
-  { id: 'dnsep', year: 2025, month: 'Oct.', title: 'DNSEP — Diplôme', role: 'Soutenance, mention félicitations du jury', place: 'ESACM, Clermont-Ferrand', curator: 'Jury : C. Macel, Y. Chateigné, S. Lavigne' },
-  { id: 'moisson-bleue', year: 2025, month: 'Juin', title: 'Moisson Bleue', role: 'Exposition collective', place: "Le Creux de l'Enfer, Thiers", curator: 'Sophie Auger' },
-  { id: 'veillees-d-eau', year: 2024, month: 'Sept.', title: "Veillées d'eau", role: 'Performance + édition', place: 'Festival Hors-Champs, Vichy', curator: 'Antoine Pickels' },
-  { id: 'reverdie', year: 2024, month: 'Mars', title: 'Reverdie', role: 'Exposition collective des 4e année', place: 'ESACM, Clermont-Ferrand' },
-  { id: 'souffler-ensemble', year: 2023, month: 'Nov.', title: 'Souffler ensemble', role: "Performance, soirée d'ouverture", place: 'La Tôlerie, Clermont-Ferrand', curator: 'Émilie Vialet' },
-  { id: 'residence-allier', year: 2023, month: 'Été', title: 'Résidence — Allier', role: "Résidence d'écriture, 6 semaines", place: 'Maison de la Rivière, Brioude' },
-  { id: 'premiers-murmures', year: 2022, month: 'Mai', title: 'Premiers murmures', role: 'Exposition collective de 2e année', place: 'ESACM, Clermont-Ferrand' },
-];
+import type { Ecrit, LigneParcours, MentionPresse } from './types';
 
 export const ECRITS: Ecrit[] = [
   {
